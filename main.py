@@ -27,7 +27,6 @@ async def websocket_endpoint(websocket: WebSocket):
             'data': data,
             'id': id
         })
-        print(response)
 
         await websocket.send_json(data=response)
 
