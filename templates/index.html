@@ -12,13 +12,13 @@
 <ul id='messages'>
 </ul>
 <script>
-    var ws = new WebSocket("ws://localhost:8000/ws");
+    let ws = new WebSocket("ws://localhost:8000/ws");
     ws.onmessage = function(event) {
-        var messages = document.getElementById('messages')
-        var message = document.createElement('li')
-        var data = JSON.parse(JSON.parse(event.data)).data
-        var id = JSON.parse(JSON.parse(event.data)).id
-        var el = document.createElement('h3')
+        let messages = document.getElementById('messages')
+        let message = document.createElement('li')
+        let data = JSON.parse(JSON.parse(event.data)).data
+        let id = JSON.parse(JSON.parse(event.data)).id
+        let el = document.createElement('h3')
         el.textContent = "id: " + id + ". Message: " + data
         message.appendChild(el)
         messages.appendChild(message)
