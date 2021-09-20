@@ -1,4 +1,5 @@
 import uvicorn
+
 from fastapi import FastAPI, WebSocket, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -16,10 +17,19 @@ async def get(request: Request):
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
+    import json
     await websocket.accept()
+    id = 0
     while True:
         data = await websocket.receive_text()
-        await websocket.send_json(data=data)
+        id = id + 1
+        response = json.dumps({
+            'data': data,
+            'id': id
+        })
+        print(response)
+
+        await websocket.send_json(data=response)
 
 
 if __name__ == "__main__":

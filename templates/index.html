@@ -9,15 +9,18 @@
     <input type="text" id="messageText" autocomplete="off"/>
     <button>Send</button>
 </form>
-<ol id='messages'>
-</ol>
+<ul id='messages'>
+</ul>
 <script>
     var ws = new WebSocket("ws://localhost:8000/ws");
     ws.onmessage = function(event) {
         var messages = document.getElementById('messages')
         var message = document.createElement('li')
-        var content = document.createTextNode(unescape(JSON.parse(event.data)))
-        message.appendChild(content)
+        var data = JSON.parse(JSON.parse(event.data)).data
+        var id = JSON.parse(JSON.parse(event.data)).id
+        var el = document.createElement('h3')
+        el.textContent = "id: " + id + ". Message: " + data
+        message.appendChild(el)
         messages.appendChild(message)
     };
     function sendMessage(event) {
